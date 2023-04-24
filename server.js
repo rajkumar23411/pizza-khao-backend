@@ -34,7 +34,7 @@ dbConnection();
 
 app.use(
   cors({
-    origin: "https://pizzakhao.netlify.app/",
+    origin: "https://pizzakhao.netlify.app",
   })
 );
 
