@@ -13,7 +13,6 @@ const wishlistRoutes = require("./routes/wishlistRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
 const fileUpload = require("express-fileupload");
-
 const cors = require("cors");
 dotenv.config({ path: "./.env" });
 
@@ -32,6 +31,12 @@ process.on("unhandledRejection", (err) => {
 });
 
 dbConnection();
+
+app.use(
+  cors({
+    origin: "https://pizzakhao.netlify.app/",
+  })
+);
 
 app.use(express.json());
 app.use(cookieParser());
