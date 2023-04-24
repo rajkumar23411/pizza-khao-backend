@@ -14,6 +14,7 @@ const orderRoutes = require("./routes/orderRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
 const fileUpload = require("express-fileupload");
 const cors = require("cors");
+
 dotenv.config({ path: "./.env" });
 
 //handling uncaught error
@@ -31,18 +32,11 @@ process.on("unhandledRejection", (err) => {
 });
 
 dbConnection();
-
-app.use(
-  cors({
-    origin: "https://pizzakhao.netlify.app",
-  })
-);
-
+app.use(cors({ origin: "https://pizzakhao.netlify.app", credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(fileUpload());
-app.use(cors());
 
 app.use("/api", userRoute);
 app.use("/api", productRoutes);
