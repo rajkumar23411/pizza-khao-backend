@@ -32,7 +32,15 @@ process.on("unhandledRejection", (err) => {
 });
 
 dbConnection();
-app.use(cors({ origin: "https://pizzakhao.netlify.app", credentials: true }));
+app.use(
+  cors({
+    origin: [
+      "https://pizzakhao.netlify.app",
+      "https://pizza-khao-frontend.vercel.app",
+    ],
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
