@@ -37,6 +37,7 @@ app.use(
     origin: [
       "https://pizzakhao.netlify.app",
       "https://pizza-khao-frontend.vercel.app",
+      "http://localhost:3000",
     ],
     credentials: true,
   })
