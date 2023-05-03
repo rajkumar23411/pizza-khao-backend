@@ -248,7 +248,7 @@ const userController = {
   async resetPassword(req, res, next) {
     try {
       const { contact, password } = req.body;
-      console.log(contact, password);
+
       if (!contact || !password) {
         return next(CustomErrorHandler.required("All fields are required"));
       }
@@ -258,6 +258,13 @@ const userController = {
         return next(CustomErrorHandler.notFound("User not found"));
       }
 
+      if (password.length < 6) {
+        return next(
+          CustomErrorHandler.required(
+            "Password must be atleast 6 characters long"
+          )
+        );
+      }
       user.password = password;
       await user.save();
       sendToken(user, 200, res);
