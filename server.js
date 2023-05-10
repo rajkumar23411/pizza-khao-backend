@@ -14,7 +14,7 @@ const orderRoutes = require("./routes/orderRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
 const fileUpload = require("express-fileupload");
 const cors = require("cors");
-
+const path = require("path");
 dotenv.config({ path: "./.env" });
 
 //handling uncaught error
