@@ -58,6 +58,9 @@ app.use("/api", paymentRoutes);
 
 app.use(errorHandler);
 
+// Serve the static assets from the public directory
+app.use(express.static(path.join(__dirname, "public")));
+
 app.listen(process.env.PORT || 4000, () => {
   console.log(`Server started on PORT ${process.env.PORT}`);
 });
