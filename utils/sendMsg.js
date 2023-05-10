@@ -8,7 +8,7 @@ const nexmo = new Nexmo({
 
 const sendMsg = async (otp, phone) => {
   const from = "Pizza-Khao";
-  const to = "+91" + phone;
+  const to = "91" + phone;
   console.log(to);
   nexmo.message.sendSms(
     from,
