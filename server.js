@@ -14,7 +14,6 @@ const orderRoutes = require("./routes/orderRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
 const fileUpload = require("express-fileupload");
 const cors = require("cors");
-const { createProxyMiddleware } = require("http-proxy-middleware");
 
 dotenv.config({ path: "./.env" });
 
