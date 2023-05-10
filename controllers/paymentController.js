@@ -9,7 +9,6 @@ const instances = new Razorpay({
 const paymentController = {
   async createRazorpayOrder(req, res) {
     const amount = req.body.amount;
-    console.log(amount);
     try {
       const options = {
         amount: amount * 100,
