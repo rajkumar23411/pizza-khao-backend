@@ -58,11 +58,14 @@ app.use("/api", paymentRoutes);
 
 app.use(errorHandler);
 
-// Serve the static assets from the public directory
-app.use(express.static(path.join(__dirname, "public")));
-app.get("/", function (req, res) {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
+// Serve static files from the build directory
+app.use(express.static(path.join(__dirname, "public", "build")));
+
+// Serve the index.html file for any other requests
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "build", "index.html"));
 });
+
 app.listen(process.env.PORT || 4000, () => {
   console.log(`Server started on PORT ${process.env.PORT}`);
 });
