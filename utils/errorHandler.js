@@ -67,7 +67,12 @@ const errorHandler = (err, req, res, next) => {
       };
     }
   }
-
+  if ((err.name = "MongooseError")) {
+    statusCode = 500;
+    data = {
+      message: "Request timeout. Check your internet connectivity",
+    };
+  }
   return res.status(statusCode).json(data);
 };
 
