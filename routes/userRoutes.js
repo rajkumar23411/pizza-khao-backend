@@ -1,3 +1,4 @@
+const { getAllUsers } = require("../controllers/admin/userController");
 const {
   forgotPassword,
   verifyForgotPasswordOTP,
@@ -12,7 +13,7 @@ const {
   updateUserName,
   loginUsingContact,
 } = require("../controllers/userController");
-const { auth } = require("../middlewares/auth");
+const { auth, admin } = require("../middlewares/auth");
 
 const userRoute = require("express").Router();
 
@@ -27,4 +28,6 @@ userRoute.post("/forgot/password", forgotPassword); // send reset password OTP
 userRoute.post("/verify/forgot/password/otp", verifyForgotPasswordOTP); // verify the otp and reset the password
 userRoute.post("/reset/password", resetPassword); // reset the user's password
 
+// admin
+userRoute.get("/admin/users/all", [auth, admin], getAllUsers);
 module.exports = userRoute;

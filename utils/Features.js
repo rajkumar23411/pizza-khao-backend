@@ -43,6 +43,19 @@ class Features {
     this.query = this.query.limit(resultPerPage).skip(skip);
     return this;
   }
+  searchCoupon(fields = []) {
+    const keyword = this.queryString.keyword
+      ? {
+          $or: fields.map((field) => {
+            return {
+              [field]: { $regex: this.queryString.keyword, $options: "i" },
+            };
+          }),
+        }
+      : {};
+    this.query = this.query.find({ ...keyword });
+    return this;
+  }
 }
 
 module.exports = Features;

@@ -43,7 +43,7 @@ const orderController = {
     try {
       const order = await Order.findById(req.params.id)
         .populate("addressId")
-        .populate("userId", "firstname lastname email");
+        .populate("userId", "firstname lastname contact email");
 
       res.status(200).json({ order });
     } catch (Error) {
@@ -65,41 +65,6 @@ const orderController = {
     }
 
     res.status(200).json({ order });
-  },
-
-  async updateOrderStatus(req, res, next) {
-    try {
-      const order = await Order.findById(req.params.id).populate(
-        "userId",
-        "firstname lastname email"
-      );
-
-      if (!order) {
-        return next(CustomErrorHandler.notFound("No order found"));
-      }
-
-      if (order.orderStatus === "Delivered") {
-        return next(
-          CustomErrorHandler.badRequest("You have already delivered this order")
-        );
-      }
-
-      if (req.body.status === "Shipped") {
-        order.shippedAt = Date.now();
-      }
-
-      order.orderStatus = req.body.status;
-
-      if (req.body.status === "Delivered") {
-        order.deliveredAt = Date.now();
-      }
-
-      await order.save();
-
-      res.status(200).json({ order });
-    } catch (err) {
-      console.log(err);
-    }
   },
 };
 

@@ -15,6 +15,7 @@ const paymentRoutes = require("./routes/paymentRoutes");
 const fileUpload = require("express-fileupload");
 const cors = require("cors");
 const path = require("path");
+const couponRoutes = require("./routes/couponRoutes");
 dotenv.config({ path: "./.env" });
 
 //handling uncaught error
@@ -55,6 +56,7 @@ app.use("/api", cartRoutes);
 app.use("/api", wishlistRoutes);
 app.use("/api", orderRoutes);
 app.use("/api", paymentRoutes);
+app.use("/api", couponRoutes);
 
 app.use(errorHandler);
 

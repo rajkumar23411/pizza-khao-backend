@@ -30,7 +30,7 @@ const orderSchema = new Schema({
     paidAt: { type: Date },
   },
   orderDate: { type: Date, default: Date.now() },
-  orderStatus: { type: String, required: true, default: "Order Placed" },
+  orderStatus: { type: String, required: true, default: "Placed" },
   shippedAt: { type: Date },
   deliveredAt: { type: Date },
   orderedAt: { type: Date, default: Date.now() },

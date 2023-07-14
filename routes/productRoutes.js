@@ -1,3 +1,4 @@
+const { getAllProducts } = require("../controllers/admin/productController");
 const {
   create,
   update,
@@ -19,4 +20,7 @@ productRoutes.delete("/product/:id", [auth, admin], deleteAproduct);
 productRoutes.post("/product/add/review", [auth], addUpdateReview);
 productRoutes.get("/reviews", getAllReviews);
 productRoutes.get("/products/related/:id", getRelatedProducts);
+
+// admin
+
 module.exports = productRoutes;
