@@ -1,6 +1,5 @@
-const couponController = require("../controllers/couponController");
+const couponController = require("../controllers/admin/couponController");
 const { auth, admin } = require("../middlewares/auth");
-
 const couponRoutes = require("express").Router();
 
 couponRoutes.post("/coupon/create", [auth, admin], couponController.create);

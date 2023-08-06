@@ -3,23 +3,6 @@ class Features {
     this.query = query;
     this.queryString = queryString;
   }
-
-  search() {
-    const keyword = this.queryString.keyword
-      ? {
-          $or: [
-            { name: { $regex: this.queryString.keyword, $options: "i" } },
-            { category: { $regex: this.queryString.keyword, $options: "i" } },
-            {
-              description: { $regex: this.queryString.keyword, $options: "i" },
-            },
-          ],
-        }
-      : {};
-
-    this.query = this.query.find({ ...keyword });
-    return this;
-  }
   filter() {
     const query = { ...this.queryString };
 
@@ -43,7 +26,12 @@ class Features {
     this.query = this.query.limit(resultPerPage).skip(skip);
     return this;
   }
-  searchCoupon(fields = []) {
+  loadMore(limit) {
+    const skip = parseInt(this.queryString.skip) || 0;
+    this.query = this.query.limit(limit).skip(skip);
+    return this;
+  }
+  search(fields = []) {
     const keyword = this.queryString.keyword
       ? {
           $or: fields.map((field) => {

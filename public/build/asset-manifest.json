@@ -1,17 +1,22 @@
 {
   "files": {
-    "main.css": "/static/css/main.b4f15fd8.css",
-    "main.js": "/static/js/main.1fa850ea.js",
+    "main.css": "/static/css/main.cb4c1d58.css",
+    "main.js": "/static/js/main.f7e5a128.js",
+    "static/media/slice-crispy-pizza-with-meat-cheese.jpg": "/static/media/slice-crispy-pizza-with-meat-cheese.8cd23431238ca0317f48.jpg",
+    "static/media/pizza-3298685_1280.jpg": "/static/media/pizza-3298685_1280.9819b6cb6263b8159b27.jpg",
+    "static/media/food-g4b13c5ed4_640.jpg": "/static/media/food-g4b13c5ed4_640.e27c655dcd10bdd7384c.jpg",
+    "static/media/pizza-gcfa15edc3_640.jpg": "/static/media/pizza-gcfa15edc3_640.ef905e96a5441065c559.jpg",
+    "static/media/samuel-richard-UWY8nGROvbk-unsplash.jpg": "/static/media/samuel-richard-UWY8nGROvbk-unsplash.07668d0bf433bf284c59.jpg",
     "static/media/slick.svg": "/static/media/slick.2630a3e3eab21c607e21.svg",
     "static/media/slick.eot": "/static/media/slick.a4e97f5a2a64f0ab1323.eot",
     "static/media/slick.ttf": "/static/media/slick.c94f7671dcc99dce43e2.ttf",
     "static/media/slick.woff": "/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/index.html",
-    "main.b4f15fd8.css.map": "/static/css/main.b4f15fd8.css.map",
-    "main.1fa850ea.js.map": "/static/js/main.1fa850ea.js.map"
+    "main.cb4c1d58.css.map": "/static/css/main.cb4c1d58.css.map",
+    "main.f7e5a128.js.map": "/static/js/main.f7e5a128.js.map"
   },
   "entrypoints": [
-    "static/css/main.b4f15fd8.css",
-    "static/js/main.1fa850ea.js"
+    "static/css/main.cb4c1d58.css",
+    "static/js/main.f7e5a128.js"
   ]
 }

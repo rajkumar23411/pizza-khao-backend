@@ -81,7 +81,7 @@ const productController = {
     try {
       const totalProducts = await Product.countDocuments();
       const features = new Features(Product.find(), req.query)
-        .search()
+        .search(["name", "category", "description"])
         .filter();
 
       let products = await features.query;
@@ -212,6 +212,27 @@ const productController = {
       res.status(200).json({ reviews: product.reviews });
     } catch (error) {
       console.log(error);
+    }
+  },
+  async categoryWiseProduct(req, res, next) {
+    try {
+      const { category } = req.params;
+      const categoryName = category.split("-").join(" ");
+
+      const products = await Product.find({
+        category: {
+          $regex: new RegExp(categoryName, "i"),
+        },
+      });
+      console.log(products);
+      if (!products) {
+        return next(CustomErrorHandler.notFound("Product not found"));
+      }
+
+      res.status(200).json({ products, success: true });
+    } catch (error) {
+      console.log(error);
+      return next(new Error("Something went wrong"));
     }
   },
 };
