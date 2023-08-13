@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.cb4c1d58.css",
-    "main.js": "/static/js/main.e8579d23.js",
+    "main.css": "/static/css/main.40ac461f.css",
+    "main.js": "/static/js/main.b03ac66a.js",
     "static/media/slice-crispy-pizza-with-meat-cheese.jpg": "/static/media/slice-crispy-pizza-with-meat-cheese.8cd23431238ca0317f48.jpg",
     "static/media/pizza-3298685_1280.jpg": "/static/media/pizza-3298685_1280.9819b6cb6263b8159b27.jpg",
     "static/media/food-g4b13c5ed4_640.jpg": "/static/media/food-g4b13c5ed4_640.e27c655dcd10bdd7384c.jpg",
@@ -12,11 +12,11 @@
     "static/media/slick.ttf": "/static/media/slick.c94f7671dcc99dce43e2.ttf",
     "static/media/slick.woff": "/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/index.html",
-    "main.cb4c1d58.css.map": "/static/css/main.cb4c1d58.css.map",
-    "main.e8579d23.js.map": "/static/js/main.e8579d23.js.map"
+    "main.40ac461f.css.map": "/static/css/main.40ac461f.css.map",
+    "main.b03ac66a.js.map": "/static/js/main.b03ac66a.js.map"
   },
   "entrypoints": [
-    "static/css/main.cb4c1d58.css",
-    "static/js/main.e8579d23.js"
+    "static/css/main.40ac461f.css",
+    "static/js/main.b03ac66a.js"
   ]
 }

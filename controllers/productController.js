@@ -224,11 +224,27 @@ const productController = {
           $regex: new RegExp(categoryName, "i"),
         },
       });
-      console.log(products);
       if (!products) {
         return next(CustomErrorHandler.notFound("Product not found"));
       }
 
+      res.status(200).json({ products, success: true });
+    } catch (error) {
+      console.log(error);
+      return next(new Error("Something went wrong"));
+    }
+  },
+  async getSoftDrinksandDesserts(req, res, next) {
+    try {
+      const products = await Product.find({
+        $or: [
+          { category: { $regex: "savory", $options: "i" } },
+          { category: { $regex: "sweet", $options: "i" } },
+        ],
+      });
+      if (!products) {
+        return next(CustomErrorHandler.notFound("Product not found"));
+      }
       res.status(200).json({ products, success: true });
     } catch (error) {
       console.log(error);
