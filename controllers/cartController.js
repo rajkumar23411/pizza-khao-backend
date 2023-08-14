@@ -1,113 +1,131 @@
 const Cart = require("../models/cart");
 const Product = require("../models/product");
 const CustomErrorHandler = require("../middlewares/CustomErrorHandler");
-
+const Coupon = require("../models/coupon");
 const cartController = {
-  async addToCart(req, res, next) {
-    const { productId, quantity, size } = req.body;
-    try {
-      if (!productId || !quantity || !size) {
-        return next(CustomErrorHandler.required("Please provide all fields"));
-      }
+    async addToCart(req, res, next) {
+        const { productId, quantity, size } = req.body;
+        try {
+            if (!productId || !quantity || !size) {
+                return next(
+                    CustomErrorHandler.required("Please provide all fields")
+                );
+            }
 
-      let cart = await Cart.findOne({ userId: req.user._id });
+            let cart = await Cart.findOne({ userId: req.user._id });
 
-      if (!cart) {
-        cart = new Cart({
-          userId: req.user._id,
-          items: [],
-          totalPrice: 0,
-        });
-      }
+            if (!cart) {
+                cart = new Cart({
+                    userId: req.user._id,
+                    items: [],
+                    totalPrice: 0,
+                });
+            }
 
-      // check the item already exists or not
-      const isItemExists = cart.items.find(
-        (item) => item.product.toString() === productId.toString()
-      );
+            // check the item already exists or not
+            const isItemExists = cart.items.find(
+                (item) => item.product.toString() === productId.toString()
+            );
 
-      if (isItemExists) {
-        return next(
-          CustomErrorHandler.AlreadyExists(
-            "Product already exists in your cart"
-          )
-        );
-      } else {
-        cart.items.push({ product: productId, quantity, size });
-      }
+            if (isItemExists) {
+                return next(
+                    CustomErrorHandler.AlreadyExists(
+                        "Product already exists in your cart"
+                    )
+                );
+            } else {
+                cart.items.push({ product: productId, quantity, size });
+            }
 
-      await cart.save();
+            await cart.save();
 
-      res.status(200).json({ cart, success: true });
-    } catch (error) {
-      console.log(error);
-    }
-  },
-  async updateCart(req, res, next) {
-    const { id, quantity, size } = req.body;
-    try {
-      const cart = await Cart.findOne({ userId: req.user._id });
+            res.status(200).json({ cart, success: true });
+        } catch (error) {
+            return next(error);
+        }
+    },
+    async updateCart(req, res, next) {
+        const { id, quantity, size } = req.body;
+        try {
+            const cart = await Cart.findOne({ userId: req.user._id });
 
-      if (!cart) {
-        return next(CustomErrorHandler.notFound("Cart not found"));
-      }
+            if (!cart) {
+                return next(CustomErrorHandler.notFound("Cart not found"));
+            }
 
-      const cartItemIndex = cart.items.findIndex(
-        (item) => item.product.toString() === id.toString()
-      );
+            const cartItemIndex = cart.items.findIndex(
+                (item) => item.product.toString() === id.toString()
+            );
 
-      if (cartItemIndex === -1) {
-        console.log("Hello");
-        return next(
-          CustomErrorHandler.notFound("Product not found in the cart")
-        );
-      } else {
-        cart.items[cartItemIndex].quantity = quantity;
-        cart.items[cartItemIndex].size = size;
-        await cart.save();
-        res.status(200).json({ cart, success: true });
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  },
-  async deleteFromCart(req, res, next) {
-    try {
-      const product = req.params.id;
-      if (!product) {
-        return next(CustomErrorHandler.required("Please provide product id"));
-      }
+            if (cartItemIndex === -1) {
+                console.log("Hello");
+                return next(
+                    CustomErrorHandler.notFound("Product not found in the cart")
+                );
+            } else {
+                cart.items[cartItemIndex].quantity = quantity;
+                cart.items[cartItemIndex].size = size;
+                await cart.save();
+                res.status(200).json({ cart, success: true });
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    async deleteFromCart(req, res, next) {
+        try {
+            const product = req.params.id;
+            if (!product) {
+                return next(
+                    CustomErrorHandler.required("Please provide product id")
+                );
+            }
 
-      const cart = await Cart.findOne({ userId: req.user._id });
+            const cart = await Cart.findOne({ userId: req.user._id });
 
-      const cartItemIndex = cart.items.findIndex(
-        (item) => item.product.toString() === product.toString()
-      );
+            const cartItemIndex = cart.items.findIndex(
+                (item) => item.product.toString() === product.toString()
+            );
 
-      if (cartItemIndex === -1) {
-        return next(
-          CustomErrorHandler.notFound("Product not found in the cart")
-        );
-      }
+            if (cartItemIndex === -1) {
+                return next(
+                    CustomErrorHandler.notFound("Product not found in the cart")
+                );
+            }
 
-      cart.items.splice(cartItemIndex, 1);
+            cart.items.splice(cartItemIndex, 1);
 
-      await cart.save();
+            // after removing item check coupon discount is applicable or not with the new total price
 
-      res.status(200).json({ message: "Product removed from cart" });
-    } catch (error) {
-      console.log(error);
-    }
-  },
-  async getCartItems(req, res, next) {
-    const userId = req.user._id;
-    if (!userId) {
-      return next(CustomErrorHandler.unAuthorized("Please login to access"));
-    }
-    const cart = await Cart.findOne({ userId: req.user.id }).populate(
-      "items.product"
-    );
-    res.status(200).json({ cart });
-  },
+            if (cart.coupon) {
+                const coupon = await Coupon.findById(cart.coupon);
+                if (cart.totalPrice < coupon.minOrderAmount) {
+                    cart.coupon = null;
+                    cart.discountAmount = 0;
+                }
+            }
+
+            await cart.save();
+            res.status(200).json({
+                message: "Product removed from cart",
+                success: true,
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    async getCartItems(req, res, next) {
+        const userId = req.user._id;
+        if (!userId) {
+            return next(
+                CustomErrorHandler.unAuthorized("Please login to access")
+            );
+        }
+        const cart = await Cart.findOne({ userId: req.user.id })
+            .populate("items.product")
+            .populate("coupon", "name code discount  minOrderAmount");
+        res.status(200).json({ cart });
+    },
 };
 
 module.exports = cartController;
