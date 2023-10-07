@@ -1,32 +1,18 @@
 {
   "files": {
-<<<<<<< HEAD
     "main.css": "/static/css/main.b7822647.css",
     "main.js": "/static/js/main.234634c4.js",
-=======
-    "main.css": "/static/css/main.9a5c64e9.css",
-    "main.js": "/static/js/main.77a25c4e.js",
->>>>>>> 607f98815ad5791bdcd928b1d9d0b51e57d6f086
     "static/media/slice-crispy-pizza-with-meat-cheese.jpg": "/static/media/slice-crispy-pizza-with-meat-cheese.8cd23431238ca0317f48.jpg",
     "static/media/pizza-3298685_1280.jpg": "/static/media/pizza-3298685_1280.9819b6cb6263b8159b27.jpg",
     "static/media/food-g4b13c5ed4_640.jpg": "/static/media/food-g4b13c5ed4_640.e27c655dcd10bdd7384c.jpg",
     "static/media/pizza-gcfa15edc3_640.jpg": "/static/media/pizza-gcfa15edc3_640.ef905e96a5441065c559.jpg",
     "static/media/samuel-richard-UWY8nGROvbk-unsplash.jpg": "/static/media/samuel-richard-UWY8nGROvbk-unsplash.07668d0bf433bf284c59.jpg",
     "index.html": "/index.html",
-<<<<<<< HEAD
     "main.b7822647.css.map": "/static/css/main.b7822647.css.map",
     "main.234634c4.js.map": "/static/js/main.234634c4.js.map"
   },
   "entrypoints": [
     "static/css/main.b7822647.css",
     "static/js/main.234634c4.js"
-=======
-    "main.9a5c64e9.css.map": "/static/css/main.9a5c64e9.css.map",
-    "main.77a25c4e.js.map": "/static/js/main.77a25c4e.js.map"
-  },
-  "entrypoints": [
-    "static/css/main.9a5c64e9.css",
-    "static/js/main.77a25c4e.js"
->>>>>>> 607f98815ad5791bdcd928b1d9d0b51e57d6f086
   ]
 }
