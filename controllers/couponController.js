@@ -92,7 +92,7 @@ const couponController = {
 
             res.status(200).json({
                 success: true,
-                msg: "Coupon removed successfully",
+                message: "Coupon removed successfully",
             });
         } catch (error) {
             console.log(error);
