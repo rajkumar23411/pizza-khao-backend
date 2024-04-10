@@ -3,7 +3,6 @@ const app = express();
 const dotenv = require("dotenv");
 const dbConnection = require("./db");
 const cookieParser = require("cookie-parser");
-const bodyParser = require("body-parser");
 const userRoute = require("./routes/userRoutes");
 const errorHandler = require("./utils/errorHandler");
 const productRoutes = require("./routes/productRoutes");
@@ -12,7 +11,6 @@ const cartRoutes = require("./routes/cartRoutes");
 const wishlistRoutes = require("./routes/wishlistRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
-const fileUpload = require("express-fileupload");
 const cors = require("cors");
 const path = require("path");
 const couponRoutes = require("./routes/couponRoutes");
@@ -21,34 +19,30 @@ dotenv.config({ path: "./.env" });
 
 //handling uncaught error
 process.on("uncaughtException", (err) => {
-  console.log(`Error: ${err.message}`);
-  console.log(`Server has been closed`);
-  process.exit(1);
+    console.log(`Server has been closed due to error -:`, err);
+    process.exit(1);
 });
 
 //Handling unhandled promise rejection
 process.on("unhandledRejection", (err) => {
-  console.log(`Error: ${err.message}`);
-  console.log(`Server has been closed`);
-  server.close(process.exit(1));
+    console.log(`Server has been closed due to error -:`, err);
+    process.exit(1);
 });
 
 dbConnection();
 
 app.use(
-  cors({
-    origin: [
-      "https://pizzakhao.netlify.app",
-      "https://pizza-khao-frontend.vercel.app",
-      "http://localhost:3000",
-    ],
-  })
+    cors({
+        origin: [
+            "https://pizzakhao.netlify.app",
+            "https://pizza-khao-frontend.vercel.app",
+            "http://localhost:3000",
+        ],
+    })
 );
-app.use(cors());
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(fileUpload());
 
 app.use("/api", userRoute);
 app.use("/api", productRoutes);
@@ -67,9 +61,9 @@ app.use(express.static(path.join(__dirname, "public", "build")));
 
 // Serve the index.html file for any other requests
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "build", "index.html"));
+    res.sendFile(path.join(__dirname, "public", "build", "index.html"));
 });
 
 app.listen(process.env.PORT || 4000, () => {
-  console.log(`Server started on PORT ${process.env.PORT}`);
+    console.log(`Server started on PORT ${process.env.PORT}`);
 });

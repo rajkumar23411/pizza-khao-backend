@@ -15,7 +15,6 @@ const productRoutes = require("express").Router();
 
 productRoutes.get("/products", getAllproducts);
 productRoutes.get("/pizza/:id", getSingleProduct);
-productRoutes.delete("/product/:id", [auth, admin], deleteAproduct);
 productRoutes.post("/product/add/review", [auth], addUpdateReview);
 productRoutes.get("/reviews", getAllReviews);
 productRoutes.get("/products/related/:id", getRelatedProducts);
