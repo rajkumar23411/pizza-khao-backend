@@ -2,6 +2,7 @@ const cloudinary = require("cloudinary").v2;
 const { promisify } = require("util");
 const fs = require("fs");
 const unlinkAsync = promisify(fs.unlink);
+
 cloudinary.config({
     cloud_name: process.env.cloudinary_cloud_name,
     api_key: process.env.cloudinary_api_key,
