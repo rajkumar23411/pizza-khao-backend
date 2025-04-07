@@ -34,7 +34,7 @@ dbConnection();
 app.use(
     cors({
         origin: [
-            "https://pizza-khao-backend.vercel.app/",
+            "https://pizza-khao-backend.vercel.app",
             "https://pizzakhao.netlify.app",
             "https://pizza-khao-frontend.vercel.app",
             "http://localhost:3000",
