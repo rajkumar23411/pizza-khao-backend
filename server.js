@@ -43,8 +43,8 @@ app.use(
 );
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(cookieParser());
 
+app.use(cookieParser());
 app.use("/api", userRoute);
 app.use("/api", productRoutes);
 app.use("/api", addressRoutes);

@@ -3,17 +3,30 @@ const CustomErrorHandler = require("./CustomErrorHandler");
 const User = require("../models/user");
 
 exports.auth = async (req, res, next) => {
-    const { _pizza_k } = req.cookies;
+    const { token } = req.cookies;
 
-    if (!_pizza_k) {
-        return next(CustomErrorHandler.unAuthorized("You are not authorized"));
+    if (!token) {
+        return next(CustomErrorHandler.unAuthorized("You are not authorized."));
     }
 
-    const { _id } = await jwt.verify(_pizza_k, process.env.JWT_SECRET);
+    try {
+        const { _id } = jwt.verify(token, process.env.JWT_SECRET);
 
-    req.user = await User.findById(_id);
+        const user = await User.findById(_id);
 
-    next();
+        if (!user) {
+            return next(CustomErrorHandler.unAuthorized("User not found."));
+        }
+
+        req.user = user;
+
+        next();
+    } catch (error) {
+        console.log(error);
+        return next(
+            CustomErrorHandler.unAuthorized("Invalid or expired token")
+        );
+    }
 };
 
 exports.admin = async (req, res, next) => {
