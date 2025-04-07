@@ -38,6 +38,7 @@ app.use(
             "https://pizza-khao-frontend.vercel.app",
             "http://localhost:3000",
         ],
+        credentials: true,
     })
 );
 app.use(express.urlencoded({ extended: false }));
@@ -55,14 +56,6 @@ app.use("/api", couponRoutes);
 app.use("/api", feedbackRoutes);
 
 app.use(errorHandler);
-
-// Serve static files from the build directory
-app.use(express.static(path.join(__dirname, "public", "build")));
-
-// Serve the index.html file for any other requests
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "build", "index.html"));
-});
 
 app.listen(process.env.PORT || 4000, () => {
     console.log(`Server started on PORT ${process.env.PORT}`);
